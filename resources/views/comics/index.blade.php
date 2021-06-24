@@ -6,4 +6,37 @@
 @section('bodyContent')
 
 @dump($comics)
+
+@foreach($comics as $comic)
+
+  <div class="">
+    Titolo: {{$comic->title}}
+  </div>
+
+  <div class="">
+    Descrizione: {{$comic->description}}
+  </div>
+
+  <div class="">
+    src: {{$comic->thumb}}
+  </div>
+
+  <div class="">
+    Price: {{$comic->price}}
+  </div>
+
+  <div class="">
+    Serie: {{$comic->series}}
+  </div>
+
+  <div class="">
+    Data: {{$comic->date}}
+  </div>
+
+  <div class="">
+    Tipo: {{$comic->type}}
+  </div>
+
+@endforeach
+
 @endsection
