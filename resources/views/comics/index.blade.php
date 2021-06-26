@@ -37,6 +37,25 @@
     Tipo: {{$comic->type}}
   </div>
 
+  <div class="">
+    Tipo: {{$comic->id}}
+  </div>
+
+  <div class="">
+    <a href="{{ route('comics.create', $comic->id) }}">CREA</a>
+  </div>
+
+  <div class="">
+    <a href="{{ route('comics.show', $comic->id) }}">VISUALIZZA</a>
+  </div>
+
+  <div class="">
+    <a href="{{ route('comics.edit', $comic->id) }}">MODIFICA</a>
+  </div>
+
+  {{-- il metodo delete si deve appoggiare ad un form con un buttun che fa una submit con metodo delete --}}
+  {{-- come secondo argomento passiamo id --}}
+  @include('partials.components.deleteBtn', ["comic"=>$comic])
 @endforeach
 
 @endsection

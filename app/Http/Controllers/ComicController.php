@@ -68,7 +68,7 @@ class ComicController extends Controller
     public function show($id)
     {
         //nello Show visualizziamo i singoli fumetti, utilizzando id
-        $comic = Comic::find($id);
+        $comic = Comic::findOrFail($id);
 
         return view("comics.show", [
           "comic" => $comic,
@@ -84,7 +84,23 @@ class ComicController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        // passiamo l' oggetto richiesto con id
+        $comic = Comic::find($id);
+
+        // se un utente prova ad accedere ad un contenuto inesistente riportiamo un errore 404
+        // var_dump($comic);
+        if(is_null($comic)){
+          abort(404);
+        }
+        // oppure usiamo il metodo findOrFail al posto di find
+        // $comic = Comic::findOrFail($id);
+
+        //prende l' id dell' oggetto e ce lo mostra
+        return view("comics.edit", [
+          "comic" => $comic
+        ]);
+        // edit rimanda a update con metodo put per salvare i dati
     }
 
     /**
@@ -96,7 +112,22 @@ class ComicController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //update si compone di update e edit
+        $comic = Comic::find($id);
+        // salvo i dati passati all edit
+        $editData = $request->all();
+        ;
+        // aggiorno i dati conupdate e salva automaticamente, per usare update devo
+        // implementare fillable dentro al model
+        $comic->update($editData);
+
+        return redirect()->route("comics.show", $id);
+
+        // posso anche salvare solo i dati che mi interessano:
+        // $comic->title = $editData['title'];
+        // $comic->date = $editData['date'];
+        // se usiamo questo medtodo dobbiamo salvare con:
+        // $comic->save();
     }
 
     /**
@@ -107,6 +138,11 @@ class ComicController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // recuperiamo l' oggetto
+        $comic = Comic::findOrFail($id);
+        // cancelliamolo e salviamo con metodo delete()
+        $comic->delete();
+        // reindirizziamo l' utente
+        return redirect()->route("comics.index");
     }
 }

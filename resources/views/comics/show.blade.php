@@ -32,5 +32,15 @@
   <div class="">
     Tipo: {{$comic->type}}
   </div>
+
+  <div class="">
+    <a href="{{route('comics.index')}}">HOME</a>
+  </div>
+
+  <div class="">
+    <a href="{{ route('comics.edit', $comic->id) }}">MODIFICA</a>
+  </div>
+
+  @include('partials.components.deleteBtn', ["comic"=>$comic])
 {{-- @dump($comic) --}}
 @endsection

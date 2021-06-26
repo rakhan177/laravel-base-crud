@@ -5,6 +5,7 @@
 {{-- mettiamo il segnaposto(yeld) del body per iniziare a scrivere --}}
 @section('bodyContent')
 
+{{-- nell action mettiamo a dove punta la create una volta fatto il submite --}}
 <form action="{{ route('comics.store')}}" method="post">
   @csrf
   <label for="title">Titolo</label>
@@ -30,5 +31,7 @@
 
   <input type="submit" value="Invia">
 </form>
-
+<div class="">
+  <a href="{{route('comics.index')}}">HOME</a>
+</div>
 @endsection
